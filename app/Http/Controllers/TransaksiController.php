@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaksi;
 use App\Http\Requests\StoreTransaksiRequest;
 use App\Http\Requests\UpdateTransaksiRequest;
+use App\Models\Dbarang;
 
 class TransaksiController extends Controller
 {
@@ -15,8 +16,14 @@ class TransaksiController extends Controller
      */
     public function index()
     {
+        if(!auth()->check()){
+            abort(403);
+        }
+
         return view('pages.transaksi',[
-            'page' => 'Transaksi Penjualan'
+            'page' => 'Transaksi Penjualan',
+            'transaksi' => Transaksi::all(),
+            'dbarangs' => Dbarang::all()
         ]);
     }
 
@@ -38,7 +45,11 @@ class TransaksiController extends Controller
      */
     public function store(StoreTransaksiRequest $request)
     {
-        //
+        $validatedData = $request->all();
+        
+        Transaksi::create($validatedData);
+
+        return redirect('/transaksi')->with('succes', 'Login Succes');
     }
 
     /**
@@ -83,6 +94,8 @@ class TransaksiController extends Controller
      */
     public function destroy(Transaksi $transaksi)
     {
-        //
+        Transaksi::destroy($transaksi->id);
+
+        return redirect('/transaksi')->with('succes', 'Login Succes');
     }
 }

@@ -23,4 +23,9 @@ class Dbarang extends Model
     {
         return $this->belongsTo(Jbarang::class);
     }
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

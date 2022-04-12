@@ -40,5 +40,5 @@ Route::resource('/jbarang', JbarangController::class);
 Route::resource('/dbarang', DbarangController::class);
 
 /* Transaksi */
-Route::get('/transaksi', [TransaksiController::class, 'index'])->middleware('auth');
+Route::resource('/transaksi', TransaksiController::class);
 
