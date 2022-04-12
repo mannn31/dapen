@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dbarang;
 use App\Http\Requests\StoreDbarangRequest;
 use App\Http\Requests\UpdateDbarangRequest;
+use App\Models\Jbarang;
 
 class DbarangController extends Controller
 {
@@ -15,8 +16,14 @@ class DbarangController extends Controller
      */
     public function index()
     {
+        if(!auth()->check()){
+            abort(403);
+        }
+
         return view('pages.dbarang',[
-            'page' => 'Data Barang'
+            'page' => 'Data Barang',
+            'dbarangs' => Dbarang::all(),
+            'jbarangs' => Jbarang::all()
         ]);
     }
 
@@ -38,7 +45,11 @@ class DbarangController extends Controller
      */
     public function store(StoreDbarangRequest $request)
     {
-        //
+        $validatedData = $request->all();
+        
+        Dbarang::create($validatedData);
+
+        return redirect('/dbarang')->with('succes', 'Login Succes');
     }
 
     /**
@@ -60,7 +71,12 @@ class DbarangController extends Controller
      */
     public function edit(Dbarang $dbarang)
     {
-        //
+        return view('pages.edit-dbarang', [
+            'page' => 'Edit Jenis Barang',
+            'dbarang' => $dbarang,
+            'dbarangs' => Dbarang::all(),
+            'jbarangs' => Jbarang::all()
+        ]);
     }
 
     /**
@@ -72,7 +88,16 @@ class DbarangController extends Controller
      */
     public function update(UpdateDbarangRequest $request, Dbarang $dbarang)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_barang' => 'required|max:255',
+            'jbarangs_id' => 'required',
+            'stok' => 'required',
+        ]);
+        
+        Dbarang::where('id', $dbarang->id)
+               ->update($validatedData);
+
+        return redirect('/dbarang')->with('succes', 'Login Succes');
     }
 
     /**
@@ -83,6 +108,8 @@ class DbarangController extends Controller
      */
     public function destroy(Dbarang $dbarang)
     {
-        //
+        Dbarang::destroy($dbarang->id);
+
+        return redirect('/dbarang')->with('succes', 'Login Succes');
     }
 }

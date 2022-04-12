@@ -69,7 +69,11 @@ class JbarangController extends Controller
      */
     public function edit(jbarang $jbarang)
     {
-        //
+        return view('pages.edit-jbarang', [
+            'page' => 'Edit Jenis Barang',
+            'jbarang' => $jbarang,
+            'jbarangs' => Jbarang::all()
+        ]);
     }
 
     /**

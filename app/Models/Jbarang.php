@@ -16,4 +16,9 @@ class jbarang extends Model
     protected $fillable = [
         'nama_jenis'
     ];
+
+    public function dbarangs()
+    {
+        return $this->hasMany(Dbarang::class);
+    }
 }

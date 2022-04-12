@@ -37,7 +37,7 @@ Route::get('/', [MainController::class, 'index'])->middleware('auth');
 Route::resource('/jbarang', JbarangController::class);
 
 /* Data Barang */
-Route::get('/dbarang', [DbarangController::class, 'index'])->middleware('auth');
+Route::resource('/dbarang', DbarangController::class);
 
 /* Transaksi */
 Route::get('/transaksi', [TransaksiController::class, 'index'])->middleware('auth');
