@@ -23,11 +23,13 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $jbarangs->nama_jenis }}</td>
                     <td>
-                      <form method="post" class="inline-form" style="float: inline-end;" action="{{ route('jbarang.destroy',$jbarangs->id) }}">
+                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit">
+                        Edit
+                      </button>
+                      <form method="post" class="d-inline" action="/jbarang/{{ $jbarangs->id }}">
+                        @method('delete')
                         @csrf
-                        @method('DELETE')
-                          <a href="/categories/edit/{{ $jbarangs->id }}" class="btn btn-info">Edit</a>
-                          <button type="submit" class="btn btn-danger">
+                          <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus data?')">
                             Hapus
                           </button> 
                       </form>
@@ -53,20 +55,46 @@
         <form method="post" action="/jbarang">
           <div class="modal-body">
               @csrf
-              @method('POST')
               <div class="form-group">
                   <label>Nama Jenis Barang <span style="color:red">*</span></label>
-                  <input type="text" class="form-control" placeholder="Masukkan nama jenis barang" name="nama_jenis" required>
+                  <input type="text" class="form-control" placeholder="Masukkan nama jenis barang" name="nama_jenis" id="nama_jenis" required value="{{ old('nama_jenis') }}">
               </div>
           </div>
           <div class="modal-footer justify-content-end">
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
           </div>
         </form>
       </div>
       <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="edit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Jenis Barang</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="/jbarang/{{ $jbarangs->id }}">
+        <div class="modal-body">
+            @method('put')
+            @csrf
+            <div class="form-group">
+                <label>Nama Jenis Barang <span style="color:red">*</span></label>
+                <input type="text" class="form-control" placeholder="Masukkan nama jenis barang" name="nama_jenis" id="nama_jenis" required value="{{ old('nama_jenis', $jbarangs->nama_jenis) }}">
+            </div>
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="submit" class="btn btn-primary">Update Changes</button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
 @endsection

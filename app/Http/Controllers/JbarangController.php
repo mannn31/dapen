@@ -43,13 +43,7 @@ class JbarangController extends Controller
      */
     public function store(StorejbarangRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'email' => 'required|email:dns|unique:users',
-            'password' => 'required|min:5'
-        ]);
-
-        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData = $request->all();
         
         Jbarang::create($validatedData);
 
@@ -87,7 +81,14 @@ class JbarangController extends Controller
      */
     public function update(UpdatejbarangRequest $request, jbarang $jbarang)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_jenis' => 'required|max:255',
+        ]);
+        
+        Jbarang::where('id', $jbarang->id)
+               ->update($validatedData);
+
+        return redirect('/jbarang')->with('succes', 'Login Succes');
     }
 
     /**
@@ -98,6 +99,8 @@ class JbarangController extends Controller
      */
     public function destroy(jbarang $jbarang)
     {
-        //
+        Jbarang::destroy($jbarang->id);
+
+        return redirect('/jbarang')->with('succes', 'Login Succes');
     }
 }

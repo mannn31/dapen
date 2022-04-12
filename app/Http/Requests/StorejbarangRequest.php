@@ -24,7 +24,7 @@ class StorejbarangRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_jenis' => ['required', 'string', 'confirmed'],
+            'nama_jenis' => ['required', 'string'],
         ];
     }
 }

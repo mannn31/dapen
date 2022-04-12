@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class jbarang extends Model
 {
     use HasFactory;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'nama_jenis'
     ];
