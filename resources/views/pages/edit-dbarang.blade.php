@@ -16,11 +16,11 @@
                       <div class="form-group">
                           <label>Jenis Barang <span style="color:red">*</span></label>
                           <select class="custom-select rounded-0" name="jbarangs_id" id="jbarangs_id" required>
-                            @foreach ($jbarangs as $jbarangs)
-                            @if (old('jbarangs_id', $dbarangs->jbarangs_id) == $jbarangs->id)
-                            <option value="{{ $jbarangs->id }}" selected>{{ $jbarangs->nama_jenis }}</option>
+                            @foreach ($jbarangs as $jbarang)
+                            @if (old('jbarangs_id', $dbarangs->jbarangs_id) == $jbarang->id)
+                            <option value="{{ $jbarang->id }}" selected>{{ $jbarang->nama_jenis }}</option>
                             @endif
-                              <option value="{{ $jbarangs->id }}">{{ $jbarangs->nama_jenis }}</option>
+                              <option value="{{ $jbarang->id }}">{{ $jbarang->nama_jenis }}</option>
                             @endforeach
                           </select>
                       </div>

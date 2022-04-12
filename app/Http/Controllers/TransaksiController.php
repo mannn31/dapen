@@ -45,8 +45,12 @@ class TransaksiController extends Controller
      */
     public function store(StoreTransaksiRequest $request)
     {
-        $validatedData = $request->all();
-        
+        $validatedData = $request->validate([
+            'tanggal_transaksi' => 'required',
+            'dbarangs_id' => 'required|unique:transaksis',
+            'jumlah_terjual' => 'required',
+        ]);
+
         Transaksi::create($validatedData);
 
         return redirect('/transaksi')->with('succes', 'Login Succes');

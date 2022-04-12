@@ -43,7 +43,9 @@ class JbarangController extends Controller
      */
     public function store(StorejbarangRequest $request)
     {
-        $validatedData = $request->all();
+        $validatedData = $request->validate([
+            'nama_jenis' => 'required|unique:jbarangs',
+        ]);
         
         Jbarang::create($validatedData);
 

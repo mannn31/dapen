@@ -17,7 +17,8 @@ class CreateTransaksisTable extends Migration
             $table->id();
             $table->date('tanggal_transaksi');
             $table->unsignedBigInteger('dbarangs_id');
-            $table->foreign('dbarangs_id')->references('id')->on('dbarangs');
+            $table->foreign('dbarangs_id')->references('id')->on('dbarangs')
+            ->onUpdate('cascade')->onDelete('cascade');
             $table->integer('jumlah_terjual');
             $table->timestamps();
         });

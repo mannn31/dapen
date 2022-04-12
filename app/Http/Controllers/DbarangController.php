@@ -45,7 +45,11 @@ class DbarangController extends Controller
      */
     public function store(StoreDbarangRequest $request)
     {
-        $validatedData = $request->all();
+        $validatedData = $request->validate([
+            'nama_barang' => 'required|max:255|unique:dbarangs',
+            'jbarangs_id' => 'required',
+            'stok' => 'required',
+        ]);
         
         Dbarang::create($validatedData);
 
